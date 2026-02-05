@@ -75,13 +75,6 @@ export function generateVenablesTemplate(resumeData: any, doc: jsPDF) {
     }
   }
 
-  // If we didn't manage to classify any sections, render the entire
-  // resume as plain text under the executive header so users still
-  // get a full resume output.
-  const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
-  )
-
   // HEADER - Executive Style with Background
   doc.setFillColor(44, 62, 80)
   doc.rect(0, 0, pageWidth, 45, 'F')
@@ -102,33 +95,6 @@ export function generateVenablesTemplate(resumeData: any, doc: jsPDF) {
   })
 
   y = 55
-
-  if (!hasBodyContent) {
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'normal')
-    doc.setTextColor(40, 40, 40)
-
-    for (let rawLine of lines) {
-      const line = rawLine.trim()
-      if (!line) {
-        y += 3.5
-        continue
-      }
-
-      if (line === name) continue
-      if (contact && contact.includes(line)) continue
-
-      const wrapped = doc.splitTextToSize(line, contentWidth)
-      wrapped.forEach((wLine: string) => {
-        checkPageBreak(5)
-        doc.text(wLine, margin, y)
-        y += 5
-      })
-      y += 2
-    }
-
-    return doc
-  }
 
   // EXECUTIVE SUMMARY
   if (sections.summary.length > 0) {

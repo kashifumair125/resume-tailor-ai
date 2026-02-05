@@ -87,10 +87,6 @@ export function generateModernCVTemplate(resumeData: any, doc: jsPDF) {
     }
   }
 
-  const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
-  )
-
   // HEADER in main area
   doc.setFontSize(24)
   doc.setFont('helvetica', 'bold')
@@ -123,50 +119,6 @@ export function generateModernCVTemplate(resumeData: any, doc: jsPDF) {
     })
   })
   sidebarY += 8
-
-  // If we couldn't classify any sections, print the entire resume text
-  // into the main content area so the ModernCV layout still shows all
-  // optimized content.
-  if (!hasBodyContent) {
-    doc.setFontSize(9.5)
-    doc.setFont('helvetica', 'normal')
-    doc.setTextColor(40, 40, 40)
-
-    for (let rawLine of lines) {
-      const line = rawLine.trim()
-      if (!line) {
-        y += 3.5
-        continue
-      }
-
-      if (line === name) continue
-      if (contact && contact.includes(line)) continue
-
-      const wrapped = doc.splitTextToSize(line, contentWidth)
-      wrapped.forEach((wLine: string) => {
-        checkPageBreak(5)
-        doc.text(wLine, contentMargin, y)
-        y += 4.5
-      })
-      y += 2
-    }
-
-    // Footer line on all pages
-    const totalPages = doc.getNumberOfPages()
-    for (let i = 1; i <= totalPages; i++) {
-      doc.setPage(i)
-      doc.setDrawColor(200, 200, 200)
-      doc.setLineWidth(0.5)
-      doc.line(
-        sidebarWidth,
-        doc.internal.pageSize.height - 15,
-        pageWidth - margin,
-        doc.internal.pageSize.height - 15
-      )
-    }
-
-    return doc
-  }
 
   // SKILLS in sidebar
   if (sections.skills.length > 0) {

@@ -74,65 +74,6 @@ export function generateHarvardTemplate(resumeData: any, doc: jsPDF) {
     }
   }
 
-  // If there are no parsed sections, render the full resume as plain text
-  // under the classic Harvard header, so nothing from the AI output is lost.
-  const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
-  )
-
-  if (!hasBodyContent) {
-    // Header
-    doc.setFontSize(22)
-    doc.setFont('times', 'bold')
-    doc.setTextColor(primaryColor)
-    doc.text(name || 'YOUR NAME', pageWidth / 2, y, { align: 'center' })
-    y += 7
-
-    doc.setFontSize(10)
-    doc.setFont('times', 'normal')
-    doc.setTextColor(60, 60, 60)
-    const contactLines = doc.splitTextToSize(
-      contact || 'your.email@example.com • (555) 123-4567',
-      contentWidth
-    )
-    contactLines.forEach((line: string) => {
-      doc.text(line, pageWidth / 2, y, { align: 'center' })
-      y += 4.5
-    })
-    y += 6
-
-    doc.setDrawColor(139, 0, 0)
-    doc.setLineWidth(0.8)
-    doc.line(margin, y, pageWidth - margin, y)
-    y += 10
-
-    // Body: print every non-header line verbatim
-    doc.setFontSize(10.5)
-    doc.setFont('times', 'normal')
-    doc.setTextColor(30, 30, 30)
-
-    for (let rawLine of lines) {
-      const line = rawLine.trim()
-      if (!line) {
-        y += 3.5
-        continue
-      }
-
-      if (line === name) continue
-      if (contact && contact.includes(line)) continue
-
-      const wrapped = doc.splitTextToSize(line, contentWidth)
-      wrapped.forEach((wLine: string) => {
-        checkPageBreak(5)
-        doc.text(wLine, margin, y)
-        y += 5
-      })
-      y += 2
-    }
-
-    return doc
-  }
-
   // HEADER - Classic Harvard Style
   doc.setFontSize(22)
   doc.setFont('times', 'bold')

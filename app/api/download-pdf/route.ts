@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+// Ensure this route runs in a Node.js runtime where jsPDF is supported
+export const runtime = 'nodejs'
 // @ts-ignore
 import { jsPDF } from 'jspdf'
 import { 
@@ -49,11 +51,11 @@ export async function POST(request: NextRequest) {
         generatedDoc = generateJakesTemplate(resumeText, doc)
     }
 
-    // Generate PDF buffer
-    const pdfBuffer = Buffer.from(generatedDoc.output('arraybuffer'))
+    // Generate PDF binary as ArrayBuffer
+    const pdfArrayBuffer = generatedDoc.output('arraybuffer') as ArrayBuffer
 
     // Return PDF
-    return new NextResponse(pdfBuffer, {
+    return new NextResponse(pdfArrayBuffer, {
       headers: {
         'Content-Type': 'application/pdf',
         'Content-Disposition': `attachment; filename="resume-${template}-${version}-${Date.now()}.pdf"`,

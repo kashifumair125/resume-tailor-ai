@@ -114,66 +114,6 @@ export function generateJakesTemplate(resumeData: any, doc: jsPDF) {
     }
   }
 
-  // If no structured sections were detected, fall back to printing the
-  // entire resume text as-is (minus the header) so users always get a
-  // full, ATS-safe resume in the PDF.
-  const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
-  )
-
-  if (!hasBodyContent) {
-    doc.setFontSize(24)
-    doc.setFont('helvetica', 'bold')
-    doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2])
-    doc.text(name || 'Your Name', pageWidth / 2, y, { align: 'center' })
-    y += 8
-
-    doc.setFontSize(9)
-    doc.setFont('helvetica', 'normal')
-    doc.setTextColor(grayColor[0], grayColor[1], grayColor[2])
-
-    const contactText =
-      contact ||
-      'your.email@example.com | (555) 123-4567 | Your City, State | linkedin.com/in/yourprofile'
-    const contactLines = splitText(contactText, contentWidth)
-    contactLines.forEach((line: string) => {
-      doc.text(line, pageWidth / 2, y, { align: 'center' })
-      y += 4
-    })
-    y += 6
-
-    doc.setDrawColor(200, 200, 200)
-    doc.setLineWidth(0.5)
-    doc.line(margin, y, pageWidth - margin, y)
-    y += 10
-
-    doc.setFontSize(10)
-    doc.setFont('helvetica', 'normal')
-    doc.setTextColor(lightGrayColor[0], lightGrayColor[1], lightGrayColor[2])
-
-    for (let rawLine of lines) {
-      const line = rawLine.trim()
-      if (!line) {
-        y += 3
-        continue
-      }
-
-      // Avoid duplicating the primary header and contact block
-      if (line === name) continue
-      if (contact && contact.includes(line)) continue
-
-      const wrapped = splitText(line, contentWidth)
-      wrapped.forEach((wLine: string) => {
-        checkPageBreak(5)
-        doc.text(wLine, margin, y)
-        y += 4.5
-      })
-      y += 2
-    }
-
-    return doc
-  }
-
   doc.setFontSize(24)
   doc.setFont('helvetica', 'bold')
   doc.setTextColor(primaryColor[0], primaryColor[1], primaryColor[2])
