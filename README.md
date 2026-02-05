@@ -6,10 +6,11 @@ AI-powered resume optimizer that tailors your resume to match job descriptions a
 
 - **🎯 ATS Optimization** - Beat applicant tracking systems with smart keyword matching
 - **📊 3 Resume Versions** - Get ATS-Safe, Impact, and Recruiter-Friendly versions
+- **🎨 4 Professional Templates** - Jake's Resume, Harvard, Venables, and ModernCV
 - **💡 Detailed Insights** - See exactly what changed and why it matters
 - **📈 Before/After Comparison** - Visual transformation of your resume
 - **⚠️ Rejection Risk Analysis** - Honest feedback on what might hold you back
-- **📥 PDF Download** - Download any version as a professionally formatted PDF
+- **📥 PDF Download** - Download any version in any template as a professionally formatted PDF
 
 ## 🛠️ Tech Stack
 
@@ -104,9 +105,13 @@ You should see the ResumeTailor AI landing page! 🎉
    - See what changed and why
    - Compare before/after
 
-5. **Download**
-   - Choose your preferred version
-   - Download as PDF
+5. **Choose Template & Download**
+   - Select from 4 professional templates:
+     - **Jake's Resume**: Popular one-column (most ATS-friendly)
+     - **Harvard**: Classic elegant style
+     - **Venables**: Executive modern design
+     - **ModernCV**: LaTeX-inspired with sidebar
+   - Download your preferred combination
 
 ## 🏗️ Project Structure
 
@@ -302,11 +307,10 @@ AI-powered resume optimizer that tailors your resume to match job descriptions a
 
 - **🎯 ATS Optimization** - Beat applicant tracking systems with smart keyword matching
 - **📊 3 Resume Versions** - Get ATS-Safe, Impact, and Recruiter-Friendly versions
-- **🎨 4 Professional Templates** - Jake's Resume, Harvard, Venables, and ModernCV
 - **💡 Detailed Insights** - See exactly what changed and why it matters
 - **📈 Before/After Comparison** - Visual transformation of your resume
 - **⚠️ Rejection Risk Analysis** - Honest feedback on what might hold you back
-- **📥 PDF Download** - Download any version in any template as a professionally formatted PDF
+- **📥 PDF Download** - Download any version as a professionally formatted PDF
 
 ## 🛠️ Tech Stack
 
@@ -401,13 +405,9 @@ You should see the ResumeTailor AI landing page! 🎉
    - See what changed and why
    - Compare before/after
 
-5. **Choose Template & Download**
-   - Select from 4 professional templates:
-     - **Jake's Resume**: Popular one-column (most ATS-friendly)
-     - **Harvard**: Classic elegant style
-     - **Venables**: Executive modern design
-     - **ModernCV**: LaTeX-inspired with sidebar
-   - Download your preferred combination
+5. **Download**
+   - Choose your preferred version
+   - Download as PDF
 
 ## 🏗️ Project Structure
 
