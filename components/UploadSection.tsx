@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useRef } from 'react'
-import { Upload, FileText, Briefcase, ArrowRight } from 'lucide-react'
 
 interface UploadSectionProps {
   onOptimize: (masterResume: string, jobDescription: string, resumeFile: File | null) => void
@@ -46,165 +45,169 @@ export default function UploadSection({ onOptimize, isLoading }: UploadSectionPr
       alert('Please provide both your resume and job description')
       return
     }
-
     onOptimize(masterResume, jobDescription, resumeFile)
   }
 
   return (
-    <div className="max-w-5xl mx-auto">
-      {/* Hero Section */}
-      <div className="text-center mb-12">
-        <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-          Transform Your Resume for Every Job
-        </h2>
-        <p className="text-xl text-gray-600 mb-2">
-          AI-powered optimization that beats ATS systems
-        </p>
-        <p className="text-sm text-gray-500">
-          Get 3 tailored resume versions + detailed insights in under 2 minutes
+    <div className="flex flex-col items-center justify-start gap-8 w-full">
+      {/* Header Text */}
+      <div className="flex flex-col gap-2 w-full text-center sm:text-left">
+        <h1 className="text-3xl md:text-4xl font-black leading-tight tracking-tight text-slate-900 dark:text-white">
+          Let&apos;s beat the ATS
+        </h1>
+        <p className="text-slate-500 dark:text-slate-400 text-base font-normal max-w-2xl">
+          Upload your resume and the job description below to generate a tailored,
+          keyword-optimized version in seconds.
         </p>
       </div>
 
-      {/* Upload Cards */}
-      <div className="grid md:grid-cols-2 gap-6 mb-8">
-        {/* Resume Upload Card */}
-        <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-blue-200 transition-all">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <FileText className="w-6 h-6 text-blue-600" />
-            </div>
-            <h3 className="text-xl font-semibold">Your Master Resume</h3>
+      {/* Workspace Split View */}
+      <div className="flex flex-col lg:flex-row w-full gap-6 flex-1 min-h-[500px]">
+        {/* Left: Upload Section */}
+        <div className="flex-1 flex flex-col bg-white dark:bg-surface-dark rounded-2xl shadow-sm border border-slate-200 dark:border-border-dark overflow-hidden">
+          <div className="p-5 border-b border-slate-100 dark:border-border-dark flex items-center gap-3">
+            <span className="material-symbols-outlined text-primary">upload_file</span>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+              Your Resume
+            </h3>
           </div>
-
-          {/* Upload Method Toggle */}
-          <div className="flex gap-2 mb-4">
-            <button
-              onClick={() => setUploadMethod('paste')}
-              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
-                uploadMethod === 'paste'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Paste Text
-            </button>
-            <button
-              onClick={() => setUploadMethod('upload')}
-              className={`flex-1 py-2 px-4 rounded-lg font-medium transition-all ${
-                uploadMethod === 'upload'
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-              }`}
-            >
-              Upload File
-            </button>
-          </div>
-
-          {uploadMethod === 'paste' ? (
-            <textarea
-              value={masterResume}
-              onChange={(e) => setMasterResume(e.target.value)}
-              placeholder="Paste your resume text here...
-
-Example:
-John Doe
-Software Engineer
-
-EXPERIENCE
-- Led development of web applications
-- Managed team of 5 developers
-..."
-              className="w-full h-64 p-4 border-2 border-gray-200 rounded-lg focus:border-blue-500 focus:outline-none resize-none font-mono text-sm"
-            />
-          ) : (
-            <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-400 transition-all cursor-pointer"
-                 onClick={() => fileInputRef.current?.click()}>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".pdf,.doc,.docx,.txt"
-                onChange={handleFileUpload}
-                className="hidden"
+          <div className="flex-1 p-6 flex flex-col justify-center">
+            {uploadMethod === 'upload' ? (
+              <div
+                className="h-full border-2 border-dashed border-slate-300 dark:border-slate-600 hover:border-primary dark:hover:border-primary bg-slate-50 dark:bg-[#151b23] rounded-xl flex flex-col items-center justify-center p-8 gap-6 transition-colors group cursor-pointer relative"
+                onClick={() => fileInputRef.current?.click()}
+              >
+                <div className="absolute inset-0 opacity-5 pointer-events-none bg-center bg-repeat" />
+                <div className="size-16 rounded-full bg-primary/10 flex items-center justify-center text-primary group-hover:scale-110 transition-transform duration-300">
+                  <span className="material-symbols-outlined text-4xl">
+                    cloud_upload
+                  </span>
+                </div>
+                <div className="text-center space-y-2 relative z-10">
+                  <p className="text-lg font-medium text-slate-900 dark:text-white">
+                    Drag &amp; drop your resume here
+                  </p>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    or{' '}
+                    <span className="text-primary font-bold hover:underline">
+                      browse files
+                    </span>{' '}
+                    from your computer
+                  </p>
+                  {resumeFile && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400 mt-2">
+                      Selected: {resumeFile.name}
+                    </p>
+                  )}
+                </div>
+                <div className="flex gap-3 relative z-10">
+                  <span className="px-3 py-1 rounded text-xs font-semibold bg-slate-200 dark:bg-border-dark text-slate-600 dark:text-slate-400">
+                    PDF
+                  </span>
+                  <span className="px-3 py-1 rounded text-xs font-semibold bg-slate-200 dark:bg-border-dark text-slate-600 dark:text-slate-400">
+                    DOCX
+                  </span>
+                  <span className="px-3 py-1 rounded text-xs font-semibold bg-slate-200 dark:bg-border-dark text-slate-600 dark:text-slate-400">
+                    TXT
+                  </span>
+                </div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".pdf,.doc,.docx,.txt"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  aria-label="Upload resume file"
+                />
+              </div>
+            ) : (
+              <textarea
+                value={masterResume}
+                onChange={(e) => setMasterResume(e.target.value)}
+                placeholder="Paste your resume text here..."
+                className="w-full h-64 p-4 border-2 border-slate-200 dark:border-border-dark rounded-xl bg-transparent focus:border-primary focus:outline-none resize-none font-mono text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
               />
-              <Upload className="w-12 h-12 mx-auto mb-3 text-gray-400" />
-              <p className="text-sm font-medium text-gray-700 mb-1">
-                {resumeFile ? resumeFile.name : 'Click to upload or drag and drop'}
-              </p>
-              <p className="text-xs text-gray-500">PDF, DOCX, or TXT (Max 5MB)</p>
+            )}
+
+            {/* Upload method toggle */}
+            <div className="flex gap-2 mt-4">
+              <button
+                type="button"
+                onClick={() => setUploadMethod('paste')}
+                className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                  uploadMethod === 'paste'
+                    ? 'bg-primary text-white'
+                    : 'bg-slate-100 dark:bg-[#151b23] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-border-dark'
+                }`}
+              >
+                Paste Text
+              </button>
+              <button
+                type="button"
+                onClick={() => setUploadMethod('upload')}
+                className={`flex-1 py-2 px-4 rounded-lg text-sm font-medium transition-all ${
+                  uploadMethod === 'upload'
+                    ? 'bg-primary text-white'
+                    : 'bg-slate-100 dark:bg-[#151b23] text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-border-dark'
+                }`}
+              >
+                Upload File
+              </button>
             </div>
-          )}
+          </div>
         </div>
 
-        {/* Job Description Card */}
-        <div className="bg-white rounded-xl shadow-lg p-6 border-2 border-gray-100 hover:border-purple-200 transition-all">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="p-2 bg-purple-100 rounded-lg">
-              <Briefcase className="w-6 h-6 text-purple-600" />
+        {/* Right: Job Description */}
+        <div className="flex-1 flex flex-col bg-white dark:bg-surface-dark rounded-2xl shadow-sm border border-slate-200 dark:border-border-dark overflow-hidden">
+          <div className="p-5 border-b border-slate-100 dark:border-border-dark flex items-center justify-between gap-3">
+            <div className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary">
+                description
+              </span>
+              <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                Job Description
+              </h3>
             </div>
-            <h3 className="text-xl font-semibold">Target Job Description</h3>
+            <button
+              type="button"
+              className="text-xs font-medium text-slate-500 hover:text-primary dark:text-slate-400 dark:hover:text-white transition-colors"
+              onClick={() => setJobDescription('')}
+            >
+              Clear text
+            </button>
           </div>
-
-          <textarea
-            value={jobDescription}
-            onChange={(e) => setJobDescription(e.target.value)}
-            placeholder="Paste the job description here...
-
-Example:
-We're looking for a Senior Software Engineer with:
-- 5+ years experience in Python
-- Strong knowledge of SQL and databases
-- Experience with AWS cloud services
-- Proven leadership abilities
-..."
-            className="w-full h-80 p-4 border-2 border-gray-200 rounded-lg focus:border-purple-500 focus:outline-none resize-none font-mono text-sm"
-          />
+          <div className="flex-1 p-0 relative">
+            <textarea
+              className="w-full h-full min-h-[300px] bg-transparent border-0 p-6 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-0 resize-none text-base leading-relaxed"
+              placeholder="Paste the full job description text here. We'll analyze the keywords and requirements..."
+              value={jobDescription}
+              onChange={(e) => setJobDescription(e.target.value)}
+            />
+            <div className="absolute bottom-4 right-6 pointer-events-none">
+              <span className="text-xs font-medium text-slate-400 dark:text-slate-600 bg-white/80 dark:bg-surface-dark/80 px-2 py-1 rounded backdrop-blur-sm">
+                {jobDescription.length} characters
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Optimize Button */}
-      <div className="text-center">
+      {/* Action Bar */}
+      <div className="w-full flex flex-col items-center justify-center py-6 gap-4">
         <button
+          type="button"
           onClick={handleSubmit}
           disabled={isLoading || !masterResume.trim() || !jobDescription.trim()}
-          className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+          className="group relative flex items-center justify-center gap-3 bg-primary hover:bg-blue-600 text-white font-bold py-4 px-12 rounded-xl text-lg shadow-lg shadow-primary/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0 w-full md:w-auto min-w-[280px] disabled:opacity-60 disabled:cursor-not-allowed disabled:transform-none"
         >
-          {isLoading ? (
-            <>
-              <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-              Optimizing Your Resume...
-            </>
-          ) : (
-            <>
-              <ArrowRight className="w-5 h-5" />
-              Optimize Resume Now
-            </>
-          )}
+          <span className="material-symbols-outlined group-hover:animate-pulse">
+            auto_awesome
+          </span>
+          <span>{isLoading ? 'Optimizing Resume…' : 'Optimize Resume'}</span>
         </button>
-      </div>
-
-      {/* Features Preview */}
-      <div className="mt-16 grid md:grid-cols-3 gap-6">
-        <div className="text-center p-6">
-          <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <span className="text-2xl">🎯</span>
-          </div>
-          <h4 className="font-semibold mb-2">ATS-Optimized</h4>
-          <p className="text-sm text-gray-600">Beat applicant tracking systems with keyword optimization</p>
-        </div>
-        <div className="text-center p-6">
-          <div className="w-12 h-12 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <span className="text-2xl">📊</span>
-          </div>
-          <h4 className="font-semibold mb-2">3 Resume Versions</h4>
-          <p className="text-sm text-gray-600">Get ATS-Safe, Impact, and Recruiter-Friendly versions</p>
-        </div>
-        <div className="text-center p-6">
-          <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-3">
-            <span className="text-2xl">💡</span>
-          </div>
-          <h4 className="font-semibold mb-2">Detailed Insights</h4>
-          <p className="text-sm text-gray-600">See exactly what changed and why it matters</p>
-        </div>
+        <p className="text-xs text-slate-400 dark:text-slate-500 text-center">
+          By clicking &quot;Optimize Resume&quot;, you agree to our Terms of Service.
+        </p>
       </div>
     </div>
   )

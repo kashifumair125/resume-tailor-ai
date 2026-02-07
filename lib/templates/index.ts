@@ -2,6 +2,7 @@ export { generateJakesTemplate } from './jakes'
 export { generateHarvardTemplate } from './harvard'
 export { generateVenablesTemplate } from './venables'
 export { generateModernCVTemplate } from './moderncv'
+export { generateJakesLaTeX } from './jakes-latex'
 
 export const TEMPLATES = {
   jakes: {
