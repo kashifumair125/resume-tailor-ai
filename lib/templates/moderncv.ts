@@ -88,7 +88,7 @@ export function generateModernCVTemplate(resumeData: any, doc: jsPDF) {
   }
 
   const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
+    (arr: unknown) => Array.isArray(arr) && arr.length > 0
   )
 
   // HEADER in main area

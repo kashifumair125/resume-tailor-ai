@@ -79,7 +79,7 @@ export function generateVenablesTemplate(resumeData: any, doc: jsPDF) {
   // resume as plain text under the executive header so users still
   // get a full resume output.
   const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
+    (arr: unknown) => Array.isArray(arr) && arr.length > 0
   )
 
   // HEADER - Executive Style with Background

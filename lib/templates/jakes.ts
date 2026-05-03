@@ -118,7 +118,7 @@ export function generateJakesTemplate(resumeData: any, doc: jsPDF) {
   // entire resume text as-is (minus the header) so users always get a
   // full, ATS-safe resume in the PDF.
   const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
+    (arr: unknown) => Array.isArray(arr) && arr.length > 0
   )
 
   if (!hasBodyContent) {
