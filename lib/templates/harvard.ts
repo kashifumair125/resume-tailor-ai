@@ -77,7 +77,7 @@ export function generateHarvardTemplate(resumeData: any, doc: jsPDF) {
   // If there are no parsed sections, render the full resume as plain text
   // under the classic Harvard header, so nothing from the AI output is lost.
   const hasBodyContent = Object.values(sections).some(
-    (arr: string[]) => Array.isArray(arr) && arr.length > 0
+    (arr: unknown) => Array.isArray(arr) && arr.length > 0
   )
 
   if (!hasBodyContent) {
