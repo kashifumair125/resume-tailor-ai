@@ -5,12 +5,8 @@ export const runtime = 'nodejs'
 
 /* -------------------- OpenRouter Client -------------------- */
 const client = new OpenAI({
-  apiKey: process.env.OPENROUTER_API_KEY,
-  baseURL: 'https://openrouter.ai/api/v1',
-  defaultHeaders: {
-    'HTTP-Referer': 'http://localhost:3000',
-    'X-Title': 'Resume Tailor AI',
-  },
+  apiKey: process.env.GROQ_API_KEY,
+  baseURL: 'https://api.groq.com/openai/v1',
 })
 
 /* -------------------- Helpers -------------------- */
@@ -118,9 +114,9 @@ Return ONLY the optimized resume text. No explanation.
   }
 
   const response = await client.chat.completions.create({
-    model: 'tngtech/deepseek-r1t2-chimera:free',
+    model: 'llama-3.3-70b-versatile',
     temperature: 0.3,
-    max_tokens: 4000,
+    max_tokens: 2000,
     messages: [
       {
         role: 'system',
@@ -173,7 +169,7 @@ ${jobDescription}
 `
 
   const response = await client.chat.completions.create({
-    model: 'tngtech/deepseek-r1t2-chimera:free',
+    model: 'llama-3.3-70b-versatile',
     temperature: 0.2,
     max_tokens: 3000,
     messages: [
